@@ -4,9 +4,9 @@ import { useSession, signIn, signOut } from "next-auth/react";
 const Header: NextComponentType = () => {
   const { data: sessionData } = useSession();
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-primary text-primary-content">
       <div className="flex-1">
-        <a className="btn-ghost btn text-xl normal-case">daisyUI</a>
+        <a className="text-xl text-white">Notebook</a>
       </div>
       <div className="flex-none">
         <div className="dropdown-end dropdown">
@@ -29,7 +29,7 @@ const Header: NextComponentType = () => {
               <li>
                 <a>Logout</a>
               </li>
-              <li class="bg-red-500 text-white">
+              <li className="bg-red-500 text-white">
                 <button onClick={() => void signOut()}>Sign out</button>
               </li>
             </ul>
