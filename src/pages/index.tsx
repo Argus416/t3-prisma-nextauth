@@ -3,10 +3,26 @@ import Head from "next/head";
 
 import { api } from "~/utils/api";
 import Header from "~/components/Header";
+import AddTopic from "~/components/Topics/AddTopic";
+
+const AllTopics = () => {
+  const { data: topics, refetch: refetchTopics } = api.topic.getAll.useQuery(
+    undefined,
+    {}
+  );
+
+  return (
+    <ul className="menu mt-2">
+      {topics?.map((e) => (
+        <li key={e.id}>
+          <button>{e.title}</button>
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
-
   return (
     <>
       <Head>
@@ -17,10 +33,21 @@ const Home: NextPage = () => {
 
       <main>
         <Header />
+
+        <div className="flex min-h-[92vh] justify-between">
+          <aside className="w-1/4 bg-base-200 p-3">
+            <nav>
+              <AddTopic />
+              <AllTopics />
+            </nav>
+          </aside>
+          <section className="h-52 flex-1 bg-red-100"></section>
+        </div>
       </main>
     </>
   );
 };
 
 export default Home;
+
 

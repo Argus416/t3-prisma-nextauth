@@ -1,6 +1,7 @@
 import { NextComponentType } from "next";
-import { useSession, signIn, signOut } from "next-auth/react";
-import Image from "next/image";
+import { useSession, signIn, signOut, SignOutParams } from "next-auth/react";
+import CusButton from "./UI/CusButton";
+import { ButtonMode } from "~/models/UI";
 
 const Header: NextComponentType = () => {
   const { data: sessionData } = useSession();
@@ -11,34 +12,31 @@ const Header: NextComponentType = () => {
       </div>
       <div className="flex-none">
         <div className="dropdown-end dropdown">
-          <label tabIndex={0} className="btn-ghost btn-circle avatar btn">
-            <div className="w-10 rounded-full">
-              <img
-                src={sessionData?.user.image as string}
-                alt="Profile image"
-              />
-            </div>
-          </label>
           {sessionData?.user.name ? (
-            <ul
-              tabIndex={0}
-              className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 text-black "
-            >
-              <li>
-                <a className="justify-between">Profile</a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
-              <li className="bg-red-500 text-white">
-                <button onClick={() => void signOut()}>Sign out</button>
-              </li>
-            </ul>
+            <div className="dropdown">
+              <label tabIndex={0} className="btn-ghost btn-circle avatar btn">
+                <div className="w-10 rounded-full">
+                  <img
+                    src={sessionData?.user.image as string}
+                    alt="Profile image"
+                  />
+                </div>
+              </label>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow"
+              >
+                <li>
+                  <CusButton
+                    name="Sign out"
+                    action={() => void signOut()}
+                    mode={ButtonMode.danger}
+                  />
+                </li>
+              </ul>
+            </div>
           ) : (
-            <button onClick={() => void signOut()}>Sign out</button>
+            <button onClick={() => void signIn()}>Login</button>
           )}
         </div>
       </div>
