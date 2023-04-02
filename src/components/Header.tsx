@@ -1,5 +1,6 @@
 import { NextComponentType } from "next";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Image from "next/image";
 
 const Header: NextComponentType = () => {
   const { data: sessionData } = useSession();
@@ -12,13 +13,16 @@ const Header: NextComponentType = () => {
         <div className="dropdown-end dropdown">
           <label tabIndex={0} className="btn-ghost btn-circle avatar btn">
             <div className="w-10 rounded-full">
-              <img src={sessionData?.user.image} />
+              <img
+                src={sessionData?.user.image as string}
+                alt="Profile image"
+              />
             </div>
           </label>
           {sessionData?.user.name ? (
             <ul
               tabIndex={0}
-              className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
+              className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 text-black "
             >
               <li>
                 <a className="justify-between">Profile</a>
